@@ -3,7 +3,9 @@ An easy to use sessions module for node.js
 See the provided example_server.js for a HOW-TO.
 
 This node.js module depends on a couple of other libraries:
+
 moment.js: http://momentjs.com/
+
 node-persist: https://github.com/simonlast/node-persist
 
 I have included these dependencies in the /lib of this project for convenience.
@@ -37,6 +39,8 @@ http.createServer(function (req, res) {
 
 	// This line below is what creates/restores/expires sessions
 	session.checkSession(req, res);
+	// This line must be included to write the session cookie out to the response
+	res.setHeader('Set-Cookie', 'session_id=' + req.session_id);	
 	
 	// EXAMPLE SETTERS
 	// You can use anything that can be stored in valid JSON
@@ -51,7 +55,7 @@ http.createServer(function (req, res) {
 	
 	// STANDARD PROPERTIES IN A SESSION
 	// req.session_id is created by the session.checkSession() call
-	// 'sessionHits' : a standard session that tells us how many hits a session has had
+	// 'sessionHits' : a standard property that tells us how many hits a session has had
 	// 'start' : when a session was started
 	// 'expiry' : when a session is set to expire
 	// 
