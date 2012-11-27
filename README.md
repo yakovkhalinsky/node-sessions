@@ -11,6 +11,7 @@ node-persist: https://github.com/simonlast/node-persist
 I have included these dependencies in the /lib of this project for convenience.
 
 <pre><code>var http = require('http');
+var moment = require('./lib/moment');
 
 // This is a dependency for the sessions module, which I have included for convenience.
 // There may be an updated version (see github link below), but my sessions module is stable
@@ -19,7 +20,7 @@ I have included these dependencies in the /lib of this project for convenience.
 // Credit to Simon Last for writing this.
 var storage = require('./lib/persist');
 
-var storage = require('./lib/sessions');
+var session = require('./lib/sessions');
 
 storage.init({
 	dir : '/application_store'
@@ -67,7 +68,7 @@ http.createServer(function (req, res) {
 	output += '<p>session will expire: ' + moment(session.get(req, 'expiry')).fromNow() + '</p>';
 	output += '<p>THE END</p>';
   
-  	res.writeHead(200, {'Content-Type': 'text/plain'});
+  	res.writeHead(200, {'Content-Type': 'text/html'});
   	res.end(output);
 }).listen(1337, '127.0.0.1');
 
