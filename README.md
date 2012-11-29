@@ -35,14 +35,13 @@ INITIALISE_SESSIONS_WITH_VALUES: Use this to set a standard set of key/values to
 SESSION_OPTIONS:
 - expiryInMinutes (optional): how many minutes should a session last/roll for (default: 30)
 - cookieSecret: this is the secret that is used to sign your cookies, please change this!
-<pre><code> 
-session.init(
+<pre><code>session.init(
 	storage, 
 	{ authenticated : false, user : null }, 
 	{ expiryInMinutes : 5 }
-);
+);</code></pre>
 
-http.createServer(function (req, res) {
+<pre><code>http.createServer(function (req, res) {
 
 	// This line below is what creates/restores/expires sessions
 	session.checkSession(req);
