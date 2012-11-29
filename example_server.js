@@ -1,27 +1,23 @@
 var http = require('http');
 var moment = require('./lib/moment');
-
-// This is a dependency for the sessions module, which I have included for convenience.
-// There may be an updated version (see github link below), but my sessions module is stable
-// with the included version.
-// Latest version can be found on github here: https://github.com/simonlast/node-persist
-// Credit to Simon Last for writing this.
 var storage = require('./lib/persist');
-
 var session = require('./lib/sessions');
 
+// Initialise storage for sessions module
 storage.init({
 	dir : '/application_store'
 });
 
-// You must include the 'storage' when calling init for the sessions module.
-// The second object is an object with key/values that are always initialised into every session.
-// The third argument (which is optional) sets the number of minutes a session lasts/rolls for.
-// NOTE: Session expiry defaults to 30 minutes (you can also change this in sessions.js). 
+// session.init(STORAGE, INITIALISE_SESSIONS_WITH_VALUES, SESSION_OPTIONS)
+// STORAGE: This is a reference to the initialise persist storage object
+// INITIALISE_SESSIONS_WITH_VALUES: Use this to set a standard set of key/values to initialise all new sessions with
+// SESSION_OPTIONS:
+// - expiryInMinutes (optional): how many minutes should a session last/roll for (default: 30)
+// - cookieSecret: this is the secret that is used to sign your cookies, please change this!
 session.init(
 	storage, 
 	{ authenticated : false, user : null }, 
-	{ expiryInMinutes : 5 }
+	{ expiryInMinutes : 5, cookieSecret : 'I\'ve got a lovely bunch of coconuts' }
 );
 
 http.createServer(function (req, res) {

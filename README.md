@@ -3,13 +3,14 @@ An easy to use sessions module for node.js
 See the provided example_server.js for a HOW-TO.
 
 This node.js module depends on a couple of other libraries:
-
-moment.js: http://momentjs.com/
-
-node-persist: https://github.com/simonlast/node-persist
+* moment.js: http://momentjs.com/
+* node-persist: https://github.com/simonlast/node-persist
+* router: https://github.com/gett/router
+* uuid: https://github.com/broofa/node-uuid
 
 I have included these dependencies in the /lib of this project for convenience.
 
+**INITIALISE EVERYTHING**
 <pre><code>var http = require('http');
 var moment = require('./lib/moment');
 
@@ -25,11 +26,16 @@ var session = require('./lib/sessions');
 storage.init({
 	dir : '/application_store'
 });
+</code></pre>
 
-// You must include the 'storage' when calling init for the sessions module.
-// The second object is an object with key/values that are always initialised into every session.
-// The third argument (which is optional) sets the number of minutes a session lasts/rolls for.
-// NOTE: Session expiry defaults to 30 minutes (you can also change this in sessions.js). 
+**INITIALISE PROPERTIES OF THE SESSIONS MODULE**
+<code>session.init(STORAGE, INITIALISE_SESSIONS_WITH_VALUES, SESSION_OPTIONS)</code>
+STORAGE: This is a reference to the initialise persist storage object
+INITIALISE_SESSIONS_WITH_VALUES: Use this to set a standard set of key/values to initialise all new sessions with
+SESSION_OPTIONS:
+- expiryInMinutes (optional): how many minutes should a session last/roll for (default: 30)
+- cookieSecret: this is the secret that is used to sign your cookies, please change this!
+<pre><code> 
 session.init(
 	storage, 
 	{ authenticated : false, user : null }, 
