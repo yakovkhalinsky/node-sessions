@@ -27,7 +27,7 @@ session.init(
 http.createServer(function (req, res) {
 
 	// This line below is what creates/restores/expires sessions
-	session.checkSession(req, res);
+	session.checkSession(req);
 	// This line must be included to write the session cookie out to the response
 	res.setHeader('Set-Cookie', 'session_id=' + req.session_id);	
 	
